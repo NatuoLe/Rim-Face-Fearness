@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyName>FaceToFearness</AssemblyName>
+    <RootNamespace>Fearness</RootNamespace>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Source\Coms\CourageComponent.cs" />
+    <Compile Include="Source\Coms\FearnessComponent.cs" />
+    <Compile Include="Source\FearnessUtility.cs" />
+    <Compile Include="Source\HarmonyPatches.cs" />
+    <Compile Include="Source\Logic\FearnessLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony" HintPath="0Harmony.dll" />
+    <Reference Include="Assembly-CSharp" HintPath="Assembly-CSharp.dll" />
+    <Reference Include="Verse" HintPath="Assembly-CSharp.dll" />
+    <Reference Include="UnityEngine" HintPath="UnityEngine.dll" />
+  </ItemGroup>
+</Project>
