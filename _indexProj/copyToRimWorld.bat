@@ -51,6 +51,9 @@ xcopy /E /I /Y "%PROJECT_DIR%..\About" "%DEST_DIR%\About"
 echo Copy Defs folder...
 xcopy /E /I /Y "%PROJECT_DIR%..\Defs" "%DEST_DIR%\Defs"
 
+echo Copy Languages folder...
+xcopy /E /I /Y "%PROJECT_DIR%..\Languages" "%DEST_DIR%\Languages"
+
 echo Creating Assemblies folder and copy DLL...
 if not exist "%DEST_DIR%\Assemblies" mkdir "%DEST_DIR%\Assemblies"
 if exist "%PROJECT_DIR%bin\Release\net48\FaceToFearness.dll" (

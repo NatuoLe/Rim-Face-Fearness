@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThoughtDef>
+    <defName>SevereBleeding</defName>
+    <workerClass>Fearness.ThoughtWorker_SevereBleeding</workerClass>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>severe bleeding</label>
+        <description>I'm losing too much blood... I feel lightheaded and terrified.</description>
+        <baseMoodEffect>-15</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

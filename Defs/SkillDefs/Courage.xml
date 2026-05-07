@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <SkillDef>
+    <defName>Courage</defName>
+    <label>courage</label>
+    <skillLabel>Courage</skillLabel>
+    <description>Represents a pawn's bravery in combat. Higher courage reduces fear when taking damage.</description>
+    <usuallyDefinedInBackstories>false</usuallyDefinedInBackstories>
+    <pawnCreatorSummaryVisible>true</pawnCreatorSummaryVisible>
+    <listOrder>100</listOrder>
+    <neverDisabledBasedOnWorkTypes>true</neverDisabledBasedOnWorkTypes>
+  </SkillDef>
+</Defs>

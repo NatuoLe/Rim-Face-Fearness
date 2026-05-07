@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <Fearness.label>无畏值</Fearness.label>
+  <Fearness.description>殖民者当前的无畏值。高无畏意味着殖民者在战斗中保持冷静，而低无畏会导致恐惧和恐慌。</Fearness.description>
+</LanguageData>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <NeedDef>
+    <defName>Fearness</defName>
+    <label>fearless</label>
+    <description>The current fearless level of the pawn. High fearless means the pawn stays calm in battle, while low fearless causes fear and panic.</description>
+    <needClass>Fearness.Need_Fearness</needClass>
+    <minIntelligence>ToolUser</minIntelligence>
+    <showOnNeedList>true</showOnNeedList>
+    <colonistsOnly>false</colonistsOnly>
+    <baseLevel>0</baseLevel>
+    <fallPerDay>0</fallPerDay>
+    <major>true</major>
+  </NeedDef>
+</Defs>

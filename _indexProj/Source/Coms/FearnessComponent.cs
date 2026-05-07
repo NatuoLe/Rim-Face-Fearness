@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
+using RimWorld;
 
 namespace Fearness
 {
 
-public class CompProperties_FearnessCompProperties_Fearness : CompProperties
+public class CompProperties_Fearness : CompProperties
 {
-    public float decayRate = 0.01f;
-    public float recoveryRate = 0.005f;
+    public float decayRate = 0.5f;
     public float maxLevel = 100f;
+    public float baseDamageFearReduction = 15f;
 
     public CompProperties_Fearness()
     {
@@ -44,46 +45,45 @@ public class FearnessComponent : ThingComp, IExposable
 
     public float LastLevelPercentage => lastLevelInt / MaxLevel;
 
-    public FearStatus Status
+    public CourageStatus Status
     {
         get
         {
-            if (CurLevel < 20f) return FearStatus.Calm;
-            if (CurLevel < 50f) return FearStatus.Normal;
-            if (CurLevel < 80f) return FearStatus.Afraid;
-            return FearStatus.Panicked;
+            if (CurLevelPercentage >= 0.8f) return CourageStatus.Brave;
+            if (CurLevelPercentage >= 0.5f) return CourageStatus.Normal;
+            if (CurLevelPercentage >= 0.2f) return CourageStatus.Afraid;
+            return CourageStatus.Panicked;
         }
     }
 
-    public bool IsAfraid => Status >= FearStatus.Afraid;
-    public bool IsPanicked => Status == FearStatus.Panicked;
-    public bool IsCalm => Status == FearStatus.Calm;
+    public bool IsAfraid => Status <= CourageStatus.Afraid;
+    public bool IsPanicked => Status == CourageStatus.Panicked;
+    public bool IsBrave => Status == CourageStatus.Brave;
 
     public override void Initialize(CompProperties props)
     {
         base.Initialize(props);
-        curLevelInt = 0f;
-        lastLevelInt = 0f;
+        curLevelInt = MaxLevel;
+        lastLevelInt = MaxLevel;
     }
 
-    public void AddFear(float amount)
+    public void AddFearnessReduction(float baseAmount)
     {
         lastLevelInt = curLevelInt;
-        CurLevel += amount;
-        Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} AddFear: {amount}, Current: {CurLevel} ({Status})");
 
+        float courageLevel = 1f;
         CourageComponent courageComp = Pawn?.GetComp<CourageComponent>();
-        if (courageComp != null && amount > 0)
+        if (courageComp != null)
         {
-            courageComp.Learn(amount);
+            courageLevel = courageComp.Level;
         }
-    }
 
-    public void ReduceFear(float amount)
-    {
-        lastLevelInt = curLevelInt;
-        CurLevel -= amount;
-        Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} ReduceFear: {amount}, Current: {CurLevel} ({Status})");
+        float reductionFactor = 1f - (courageLevel - 1f) / 19f * 0.5f;
+        float actualReduction = baseAmount * reductionFactor;
+
+        CurLevel -= actualReduction;
+        Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} TookDamage: -{actualReduction:F1} (Courage={courageLevel}, Factor={reductionFactor:F2}), Current: {CurLevel:F1} ({Status})");
+
     }
 
     public void FearnessInterval()
@@ -92,27 +92,56 @@ public class FearnessComponent : ThingComp, IExposable
 
         lastLevelInt = curLevelInt;
 
-        float courageBonus = 0f;
+        float courageLevel = 1f;
         CourageComponent courageComp = Pawn.GetComp<CourageComponent>();
         if (courageComp != null)
         {
-            courageBonus = courageComp.Level * 0.001f;
+            courageLevel = courageComp.Level;
         }
 
         float moodFactor = Pawn.needs?.mood?.CurLevel ?? 0.5f;
+        float recoveryRate = Props.decayRate * (1f + (courageLevel - 1f) / 19f * 0.5f);
 
-        if (curLevelInt > 0f)
+        bool hasSevereBleeding = HasSevereBleedingThought();
+        float bleedingReduction = 0f;
+
+        if (hasSevereBleeding)
         {
-            float decayAmount = (Props.decayRate + courageBonus) * moodFactor;
-            CurLevel -= decayAmount;
-            Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} Decay: -{decayAmount}, Current: {CurLevel} ({Status})");
+            float baseBleedingReduction = Props.baseDamageFearReduction * 0.1f;
+            float reductionFactor = 1f - (courageLevel - 1f) / 19f * 0.5f;
+            bleedingReduction = baseBleedingReduction * reductionFactor;
+            CurLevel -= bleedingReduction;
+            Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} SevereBleeding: -{bleedingReduction:F3}, Current: {CurLevel:F1}");
         }
-        else
+
+        if (CurLevel < MaxLevel && !hasSevereBleeding)
         {
-            float recoveryAmount = Props.recoveryRate * moodFactor;
-            CurLevel = (float)System.Math.Max(curLevelInt - recoveryAmount, 0f);
-            Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} Recovery: +{recoveryAmount}, Current: {CurLevel} ({Status})");
+            float recoveryAmount = recoveryRate * moodFactor;
+            CurLevel += recoveryAmount;
+            Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} Recovery: +{recoveryAmount:F3}, Current: {CurLevel:F1} ({Status})");
         }
+    }
+
+    private bool HasSevereBleedingThought()
+    {
+        if (Pawn?.needs?.mood?.thoughts?.memories == null) return false;
+        
+        var severeBleedingDef = DefDatabase<ThoughtDef>.GetNamed("SevereBleeding", false);
+        if (severeBleedingDef == null)
+        {
+            Log.Message("[Fearness] SevereBleeding ThoughtDef not found in database");
+            return false;
+        }
+        
+        var memories = Pawn.needs.mood.thoughts.memories.Memories;
+        foreach (var memory in memories)
+        {
+            if (memory.def == severeBleedingDef)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public override void CompTick()
@@ -126,22 +155,22 @@ public class FearnessComponent : ThingComp, IExposable
 
     public override string CompInspectStringExtra()
     {
-        return "Fearness".Translate() + ": " + CurLevelPercentage.ToStringPercent() + " (" + Status.ToString() + ")";
+        return "Fearness".Translate() + ": " + CurLevelPercentage.ToStringPercent() + " (" + Status.ToString().Translate() + ")";
     }
 
     public void ExposeData()
     {
-        Scribe_Values.Look(ref curLevelInt, "fearnessLevel", 0f);
-        Scribe_Values.Look(ref lastLevelInt, "fearnessLastLevel", 0f);
+        Scribe_Values.Look(ref curLevelInt, "fearnessLevel", MaxLevel);
+        Scribe_Values.Look(ref lastLevelInt, "fearnessLastLevel", MaxLevel);
     }
 }
 
-public enum FearStatus
+public enum CourageStatus
 {
-    Calm,
-    Normal,
+    Panicked,
     Afraid,
-    Panicked
+    Normal,
+    Brave
 }
 
 }

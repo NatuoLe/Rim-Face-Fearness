@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <HediffDef>
+    <defName>Cowardly</defName>
+    <label>cowardly</label>
+    <labelNoun>a cowardly trait</labelNoun>
+    <description>A colonist who is cowardly tends to avoid dangerous situations.</description>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeHitChance>-0.05</MeleeHitChance>
+          <ShootingAccuracyPawn>-0.05</ShootingAccuracyPawn>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  <HediffDef>
+    <defName>Brave</defName>
+    <label>brave</label>
+    <labelNoun>a brave trait</labelNoun>
+    <description>A colonist who is brave performs better in combat.</description>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeHitChance>0.05</MeleeHitChance>
+          <ShootingAccuracyPawn>0.05</ShootingAccuracyPawn>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  <HediffDef>
+    <defName>Afraid</defName>
+    <label>afraid</label>
+    <labelNoun>afraid</labelNoun>
+    <description>A colonist who is afraid has reduced combat effectiveness.</description>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <label>slightly afraid</label>
+        <statOffsets>
+          <MeleeHitChance>-0.1</MeleeHitChance>
+          <ShootingAccuracyPawn>-0.1</ShootingAccuracyPawn>
+        </statOffsets>
+      </li>
+      <li>
+        <label>very afraid</label>
+        <minSeverity>0.5</minSeverity>
+        <statOffsets>
+          <MeleeHitChance>-0.2</MeleeHitChance>
+          <ShootingAccuracyPawn>-0.2</ShootingAccuracyPawn>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  <HediffDef>
+    <defName>Panicked</defName>
+    <label>panicked</label>
+    <labelNoun>panicked</labelNoun>
+    <description>A colonist who is panicked is overwhelmed by fear.</description>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeHitChance>-0.3</MeleeHitChance>
+          <ShootingAccuracyPawn>-0.3</ShootingAccuracyPawn>
+          <MoveSpeed>-0.2</MoveSpeed>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  <HediffDef>
+    <defName>Calm</defName>
+    <label>calm</label>
+    <labelNoun>calm</labelNoun>
+    <description>A colonist who is calm performs better under pressure.</description>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeHitChance>0.1</MeleeHitChance>
+          <ShootingAccuracyPawn>0.1</ShootingAccuracyPawn>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+  
+  <HediffDef>
+    <defName>CourageLevelUp</defName>
+    <label>courage level up</label>
+    <labelNoun>a courage level up</labelNoun>
+    <description>A colonist has leveled up their courage! They feel more confident.</description>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <hediffClass>HediffWithComps</hediffClass>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeHitChance>0.1</MeleeHitChance>
+          <ShootingAccuracyPawn>0.1</ShootingAccuracyPawn>
+        </statOffsets>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1</severityPerDay>
+      </li>
+    </comps>
+  </HediffDef>
+</Defs>

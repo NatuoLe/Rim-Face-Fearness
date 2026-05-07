@@ -100,7 +100,24 @@ public class CourageComponent : ThingComp, IExposable
         if (Pawn != null)
         {
             Messages.Message("CourageLevelUp".Translate(Pawn.LabelShort, Level), Pawn, MessageTypeDefOf.PositiveEvent);
+            SyncToSkill();
         }
+    }
+
+    private void SyncToSkill()
+    {
+        if (Pawn == null) return;
+
+        SkillDef courageSkillDef = DefDatabase<SkillDef>.GetNamed("Courage", false);
+        if (courageSkillDef == null) return;
+
+        SkillRecord skill = Pawn.skills?.GetSkill(courageSkillDef);
+        if (skill == null) return;
+
+        skill.levelInt = Level - 1;
+        skill.xpSinceLastLevel = xpSinceLastLevel;
+        
+        Log.Message($"[Courage] Synced to skill: {Pawn.Name.ToStringFull} Level={Level}");
     }
 
     private float XpRequiredToLevelUpFrom(int currentLevel)

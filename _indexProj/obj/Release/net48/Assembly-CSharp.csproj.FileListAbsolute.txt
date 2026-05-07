@@ -11,3 +11,4 @@ D:\RimMods\Rim-Face-Fearness\_indexProj\bin\Release\net48\UnityEngine.dll
 D:\RimMods\Rim-Face-Fearness\_indexProj\obj\Release\net48\Assembly.44154EF1.Up2Date
 D:\RimMods\Rim-Face-Fearness\_indexProj\obj\Release\net48\FaceToFearness.dll
 D:\RimMods\Rim-Face-Fearness\_indexProj\obj\Release\net48\FaceToFearness.pdb
+D:\RimMods\Rim-Face-Fearness\_indexProj\obj\Release\net48\Assembly-CSharp.sourcelink.json

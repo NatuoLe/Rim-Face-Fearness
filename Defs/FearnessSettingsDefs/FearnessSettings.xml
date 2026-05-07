@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <Fearness.FearnessSettingsDef>
+    <defName>FearnessSettings</defName>
+    <label>Fearness Settings</label>
+    <fearnessProps Class="Fearness.CompProperties_Fearness">
+      <decayRate>0.5</decayRate>
+      <maxLevel>100</maxLevel>
+      <baseDamageFearReduction>15</baseDamageFearReduction>
+    </fearnessProps>
+    <courageProps Class="Fearness.CompProperties_Courage">
+      <baseLevel>1</baseLevel>
+      <baseXP>0</baseXP>
+    </courageProps>
+  </Fearness.FearnessSettingsDef>
+</Defs>

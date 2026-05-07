@@ -10,9 +10,11 @@
   <ItemGroup>
     <Compile Include="Source\Coms\CourageComponent.cs" />
     <Compile Include="Source\Coms\FearnessComponent.cs" />
+    <Compile Include="Source\Defs\FearnessSettingsDef.cs" />
     <Compile Include="Source\FearnessUtility.cs" />
     <Compile Include="Source\HarmonyPatches.cs" />
     <Compile Include="Source\Logic\FearnessLogic.cs" />
+    <Compile Include="Source\Needs\Need_Fearness.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony" HintPath="0Harmony.dll" />

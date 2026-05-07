@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <Need_Fearness>Fearless</Need_Fearness>
+  <Need_Fearness_Desc>The current fearless level of the pawn. High fearless means the pawn stays calm in battle, while low fearless causes fear and panic.</Need_Fearness_Desc>
+
+  <Brave>Brave</Brave>
+  <Normal>Normal</Normal>
+  <Afraid>Afraid</Afraid>
+  <Panicked>Panicked</Panicked>
+
+  <Fearness>Fearless</Fearness>
+  
+  <Skill_Courage>Courage</Skill_Courage>
+  <Skill_Courage_Description>Represents a pawn's bravery in combat. Higher courage reduces fear when taking damage.</Skill_Courage_Description>
+  
+  <SevereBleeding>severe bleeding</SevereBleeding>
+  <SevereBleeding_desc>I'm losing too much blood... I feel lightheaded and terrified.</SevereBleeding_desc>
+</LanguageData>

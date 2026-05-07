@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Verse;
+using RimWorld;
 
 namespace Fearness
 {
@@ -98,7 +99,7 @@ public static class Pawn_SpawnSetup_Patch
     }
 }
 
-[HarmonyPatch(typeof(PawnGenerator), "GeneratePawn")]
+[HarmonyPatch(typeof(PawnGenerator), "GeneratePawn", new[] { typeof(PawnGenerationRequest) })]
 public static class PawnGenerator_GeneratePawn_Patch
 {
     [HarmonyPostfix]
@@ -177,6 +178,48 @@ public static class Pawn_ExposeData_Patch
 
         var courageComp = __instance.GetComp<CourageComponent>();
         courageComp?.ExposeData();
+    }
+}
+
+[HarmonyPatch(typeof(PawnGenerator), "GeneratePawn", new[] { typeof(PawnGenerationRequest) })]
+public static class PawnGenerator_GeneratePawn_SkillSync_Patch
+{
+    [HarmonyPostfix]
+    public static void Postfix(ref Pawn __result)
+    {
+        if (__result == null) return;
+        
+        CourageSkillSync.SyncCourageToSkill(__result);
+    }
+}
+
+public static class CourageSkillSync
+{
+    public static void SyncCourageToSkill(Pawn pawn)
+    {
+        if (pawn == null) return;
+
+        var courageComp = pawn.GetComp<CourageComponent>();
+        if (courageComp == null) return;
+
+        SkillDef courageSkillDef = DefDatabase<SkillDef>.GetNamed("Courage", false);
+        if (courageSkillDef == null)
+        {
+            Log.Warning("[Fearness] Courage SkillDef not found");
+            return;
+        }
+
+        SkillRecord skill = pawn.skills?.GetSkill(courageSkillDef);
+        if (skill == null)
+        {
+            Log.Warning("[Fearness] Could not get courage skill record for " + pawn.Name.ToStringFull);
+            return;
+        }
+
+        skill.levelInt = courageComp.Level - 1;
+        skill.xpSinceLastLevel = courageComp.XpSinceLastLevel;
+        
+        Log.Message("[Fearness] Synced courage to skill: " + pawn.Name.ToStringFull + " Level=" + courageComp.Level + ", XP=" + courageComp.XpSinceLastLevel);
     }
 }
 

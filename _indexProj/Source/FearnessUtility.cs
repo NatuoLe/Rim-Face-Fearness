@@ -15,14 +15,14 @@ public static class FearnessUtility
         return pawn.GetFearness()?.CurLevelPercentage ?? 0f;
     }
 
-    public static FearStatus GetFearnessStatus(this Pawn pawn)
+    public static CourageStatus GetFearnessStatus(this Pawn pawn)
     {
-        return pawn.GetFearness()?.Status ?? FearStatus.Calm;
+        return pawn.GetFearness()?.Status ?? CourageStatus.Normal;
     }
 
     public static void AddFear(this Pawn pawn, float amount)
     {
-        pawn.GetFearness()?.AddFear(amount);
+        pawn.GetFearness()?.AddFearnessReduction(amount);
     }
 
     public static bool IsAfraid(this Pawn pawn)
@@ -35,9 +35,9 @@ public static class FearnessUtility
         return pawn.GetFearness()?.IsPanicked ?? false;
     }
 
-    public static bool IsCalm(this Pawn pawn)
+    public static bool IsBrave(this Pawn pawn)
     {
-        return pawn.GetFearness()?.IsCalm ?? true;
+        return pawn.GetFearness()?.IsBrave ?? true;
     }
 }
 

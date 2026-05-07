@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <Need_Fearness>无畏值</Need_Fearness>
+  <Need_Fearness_Desc>殖民者当前的无畏值。高无畏意味着殖民者在战斗中保持冷静，而低无畏会导致恐惧和恐慌。</Need_Fearness_Desc>
+
+  <Brave>勇敢</Brave>
+  <Normal>正常</Normal>
+  <Afraid>害怕</Afraid>
+  <Panicked>恐慌</Panicked>
+
+  <Fearness>无畏</Fearness>
+  
+  <Skill_Courage>勇气</Skill_Courage>
+  <Skill_Courage_Description>代表殖民者在战斗中的勇敢程度。更高的勇气可以减少受伤时的恐惧。</Skill_Courage_Description>
+  
+  <SevereBleeding>严重失血</SevereBleeding>
+  <SevereBleeding_desc>我流了好多血!我不想死!!!</SevereBleeding_desc>
+</LanguageData>

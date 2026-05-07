@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FaceToFearness")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e802d1b76f9b79796968b0c6a6ba8407b2d0b0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("FaceToFearness")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FaceToFearness")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

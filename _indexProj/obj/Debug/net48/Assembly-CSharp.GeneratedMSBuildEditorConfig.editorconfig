@@ -1,6 +1,6 @@
 is_global = true
 build_property.RootNamespace = Fearness
-build_property.ProjectDir = D:\RimMods\Rim-Face-Fearness\_indexProj\
+build_property.ProjectDir = d:\RimMods\Rim-Face-Fearness\_indexProj\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTUseWindowsUIXamlProjections = false
