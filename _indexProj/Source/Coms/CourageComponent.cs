@@ -28,14 +28,14 @@ public class CourageComponent : ThingComp, IExposable
         Log.Message("[Fearness] CourageComponent class loaded");
     }
 
-    public const int MinLevel = 1;
-    public const int MaxLevel = 20;
+    public const int MinLevel = Define.CourageBaseLevel;
+    public const int MaxLevel = Define.CourageMaxLevel;
 
     private static readonly SimpleCurve XpForLevelUpCurve = new SimpleCurve
     {
-        new CurvePoint(0f, 1000f),
-        new CurvePoint(9f, 10000f),
-        new CurvePoint(19f, 30000f)
+        new CurvePoint(0f, Define.CourageXPRequiredPerLevel),
+        new CurvePoint(9f, Define.CourageXPRequiredPerLevel * 10f),
+        new CurvePoint(19f, Define.CourageXPRequiredPerLevel * 30f)
     };
 
     public int Level

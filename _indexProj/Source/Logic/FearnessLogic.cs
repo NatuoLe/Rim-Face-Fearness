@@ -47,7 +47,7 @@ public class ThoughtWorker_SevereBleeding : ThoughtWorker
         
         Log.Message($"[Fearness] SevereBleeding: {p?.Name?.ToStringFull ?? "Unknown"} - BleedRate={bleedRate:F3}, MaxBleedRate={maxBleedRate:F3}, Ratio={ratio:F2}");
         
-        if (maxBleedRate > 0f && bleedRate / maxBleedRate >= 0.5f)
+        if (maxBleedRate > 0f && bleedRate / maxBleedRate >= Define.SevereBleedingThreshold)
         {
             Log.Message($"[Fearness] SevereBleeding: {p?.Name?.ToStringFull ?? "Unknown"} - ACTIVATED");
             return ThoughtState.ActiveAtStage(0);

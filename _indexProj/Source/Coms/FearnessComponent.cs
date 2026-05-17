@@ -31,7 +31,7 @@ public class FearnessComponent : ThingComp, IExposable
         Log.Message("[Fearness] FearnessComponent class loaded");
     }
 
-    public float MaxLevel => Props.maxLevel;
+    public float MaxLevel => Define.FearnessMaxLevel;
 
     public CompProperties_Fearness Props => (CompProperties_Fearness)props;
 
@@ -78,7 +78,7 @@ public class FearnessComponent : ThingComp, IExposable
             courageLevel = courageComp.Level;
         }
 
-        float reductionFactor = 1f - (courageLevel - 1f) / 19f * 0.5f;
+        float reductionFactor = 1f - (courageLevel - 1f) / (Define.CourageMaxLevel - 1f) * Define.CourageFearReductionFactor;
         float actualReduction = baseAmount * reductionFactor;
 
         CurLevel -= actualReduction;
@@ -100,15 +100,15 @@ public class FearnessComponent : ThingComp, IExposable
         }
 
         float moodFactor = Pawn.needs?.mood?.CurLevel ?? 0.5f;
-        float recoveryRate = Props.decayRate * (1f + (courageLevel - 1f) / 19f * 0.5f);
+        float recoveryRate = Define.FearnessDecayRate * (1f + (courageLevel - 1f) / (Define.CourageMaxLevel - 1f) * Define.CourageFearReductionFactor);
 
         bool hasSevereBleeding = HasSevereBleedingThought();
         float bleedingReduction = 0f;
 
         if (hasSevereBleeding)
         {
-            float baseBleedingReduction = Props.baseDamageFearReduction * 0.1f;
-            float reductionFactor = 1f - (courageLevel - 1f) / 19f * 0.5f;
+            float baseBleedingReduction = Define.FearnessBaseDamageReduction * Define.FearnessBleedingReductionFactor;
+            float reductionFactor = 1f - (courageLevel - 1f) / (Define.CourageMaxLevel - 1f) * Define.CourageFearReductionFactor;
             bleedingReduction = baseBleedingReduction * reductionFactor;
             CurLevel -= bleedingReduction;
             Log.Message($"[Fearness] {Pawn?.Name?.ToStringFull ?? "Unknown"} SevereBleeding: -{bleedingReduction:F3}, Current: {CurLevel:F1}");
